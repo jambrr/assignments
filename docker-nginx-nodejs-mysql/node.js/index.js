@@ -13,23 +13,27 @@ const client = redis.createClient({host: 'redis'});
 
 app.get('/:country', (req, res) => {
 	let country = req.params.country;
-    //client.flushdb( function (err, succeeded) {
-    //    console.log(succeeded); // will be true if successfull
-    //});
+    client.flushdb( function (err, succeeded) {
+       console.log(succeeded); // will be true if successfull
+    });
 
-	    client.get(country, function(err, rep){
-            console.log(rep);
+    client.get(country, function(err, rep){
+        console.log(rep);
         if(rep != null){
             let object = JSON.parse(rep);
             console.log(object);
             res.send(object);
         }else{
-            const file = async function(){fs.createWriteStream('data.csv');}
-	        const request = https.get("https://covid19.who.int/WHO-COVID-19-global-table-data.csv", function(response){
-	        	response.pipe(file);	
-	        });
-
-            file().then(function(){
+            //Download csv file
+            const file = fs.createWriteStream('data.csv');
+            const request = new Promise((resolve, reject) => {
+                https.get("https://covid19.who.int/WHO-COVID-19-global-table-data.csv", function(response){
+                  resolve(response.pipe(file));
+              });
+            });
+            
+            //Filter the csv file
+            request.then(value => {
                 csvtojson().fromFile('data.csv')
                 .then(data => {
                     for(var x in data){
@@ -39,9 +43,11 @@ app.get('/:country', (req, res) => {
                             let cases_7_days = data[x]["Cases - newly reported in last 7 days"];
                             let cases_24_hrs = data[x]["Cases - newly reported in last 24 hours"];
 
+                            let date = new Date();
+
                             let object = {
                                 "country": name,
-                                "date": new Date(),
+                                "date": date.getFullYear()+"-"+(date.getMonth()+1)+"-"+date.getDate(),
                                 "cases_7_days": cases_7_days,
                                 "cases_24_hrs": cases_24_hrs
                             };
