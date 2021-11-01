@@ -13,17 +13,24 @@ const client = redis.createClient({host: 'redis'});
 
 app.get('/:country', (req, res) => {
 	let country = req.params.country;
-    client.flushdb( function (err, succeeded) {
-       console.log(succeeded); // will be true if successfull
+    //client.flushdb( function (err, succeeded) {
+    //   console.log(succeeded); // will be true if successfull
+    //});
+
+    client.keys('*', function(err, keys){
+        for(var x in keys){
+            //console.log(x, keys[x]);
+        }
     });
 
     client.get(country, function(err, rep){
         console.log(rep);
         if(rep != null){
+            console.log("Retrieve data from the database");
             let object = JSON.parse(rep);
-            console.log(object);
             res.send(object);
         }else{
+            console.log("Retrieve data from the website");
             //Download csv file
             const file = fs.createWriteStream('data.csv');
             const request = new Promise((resolve, reject) => {
