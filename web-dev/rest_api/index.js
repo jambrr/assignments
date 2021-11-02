@@ -20,31 +20,38 @@ async function getRecord(city){
     return result;
 };
 
+async function generateID(){
+    let newID = knex('city').count('ID as count').then(function(total){
+        return total[0].count+2;
+    });
+    return newID;
+}
+
 app.post('/create', function(req, res){
     let city = req.body.city;
     let countryCode = req.body.countryCode;
     let district = req.body.district;
     let population = req.body.population;
 
-    console.log(city, countryCode, district, population);
-
-    knex('city').insert({
-        Name: city,
-        CountryCode: countryCode,
-        District: district,
-        Population: population
-    }).then(function(res){
-        console.log(res);
+    generateID().then(function(resolve){
+        knex('city').insert({
+            ID: resolve,
+            Name: city,
+            CountryCode: countryCode,
+            District: district,
+            Population: population
+        }).then(function(res){
+            console.log(res);
+            res.send(res);
+        });
     });
-
-    res.send('asdf');
 });
 
-app.get('/read/:city', async function(req, res){
+app.get('/read/:city', function(req, res){
     let city = req.params.city;
 
     getRecord(city).then(function(r){
-        res.send(""+r[0].ID);
+        res.send(r);
     });
 });
 
