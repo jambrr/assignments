@@ -13,6 +13,7 @@ const knex = require('knex')({
     },
 });
 
+//Returns the row of the city we want
 async function getRecord(city){
     let result = knex('city').where('Name', city).then(function(data){
         return data;
@@ -20,33 +21,38 @@ async function getRecord(city){
     return result;
 };
 
-async function generateID(){
-    let newID = knex('city').count('ID as count').then(function(total){
-        return total[0].count+2;
+//Creates an ID based on the last record ID
+async function createID(){
+    let newID = knex('city').orderBy('ID', 'desc').then(function(total){
+        return (total[0].ID + 1);
     });
     return newID;
 }
 
+//For creating data
 app.post('/create', function(req, res){
     let city = req.body.city;
     let countryCode = req.body.countryCode;
     let district = req.body.district;
     let population = req.body.population;
 
-    generateID().then(function(resolve){
+    createID().then(function(newID){
         knex('city').insert({
-            ID: resolve,
+            ID: newID,
             Name: city,
             CountryCode: countryCode,
             District: district,
             Population: population
-        }).then(function(res){
-            console.log(res);
-            res.send(res);
+        }).then(function(response){
+            getRecord(city).then(function(record){
+                console.log(record);
+                res.send(record);
+            });
         });
     });
 });
 
+//For reading data
 app.get('/read/:city', function(req, res){
     let city = req.params.city;
 
@@ -55,6 +61,7 @@ app.get('/read/:city', function(req, res){
     });
 });
 
+//For updating the data
 app.get('/updatePopulation/:city/:population', function(req, res){
     let city = req.params.city;
     let population = req.params.population;
@@ -66,6 +73,7 @@ app.get('/updatePopulation/:city/:population', function(req, res){
     });
 });
 
+//For removing the data
 app.get('/delete/:city', function(req, res){
     let city = req.params.city;
     
