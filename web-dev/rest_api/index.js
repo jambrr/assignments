@@ -140,13 +140,21 @@ app.get('/updatePopulation/:city/:population', function(req, res){
  * @apiGroup City
  * @apiParam {String} city Name of the city
  *
- * @apiSuccess {Number} Integer Either 1 or 0 indicating success or failure
+ * @apiSuccess {Number} Integer 1, inticating that the deletion was successful
  *
  * @apiSuccessExample {json} Succes-Response:
  *  HTTP/1.1 200 OK
  *  {
  *      1
  *  }
+ *
+ * @apiError {Number} Integer 0, inticating that the deletion failed
+ * @apiErrorExample {json} Error-Response:
+ *  HTTP/1.1 200 OK
+ *  {
+ *      0
+ *  }
+ *
 
  */
 app.get('/delete/:city', function(req, res){
