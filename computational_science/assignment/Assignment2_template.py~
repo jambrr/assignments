@@ -62,7 +62,7 @@ def train_model(dataset):
     opt = tf.keras.optimizers.Adam(learning_rate=0.01)
     model.compile(optimizer=opt, loss='binary_crossentropy', metrics=['accuracy'])
 
-    history = model.fit(dataset[0][:7000], dataset[1][:7000], epochs=20, batch_size=128)
+    history = model.fit(dataset[0][:7000], dataset[1][:7000], epochs=10, batch_size=128)
 
     return model
 
