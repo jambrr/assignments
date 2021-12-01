@@ -55,6 +55,7 @@ def load_dataset():
 
 def train_model(dataset):
     all_history = []
+    all_loss = []
     tf.keras.backend.clear_session()
     model = models.Sequential() # linear sequence of layers
     model.add(layers.Dense(100, activation='relu', input_shape=(6,)))
@@ -64,9 +65,20 @@ def train_model(dataset):
 
     history = model.fit(dataset[0][:7000], dataset[1][:7000], epochs=20, batch_size=128, validation_data=(dataset[2], dataset[3]))
     all_history.append(history.history)
+    all_loss.append(history.history['loss'])
 
     from matplotlib import pyplot as plt
+    
     epochs = list(range(0, 20+1))
+    
+    for loss in all_loss:
+        plt.plot(loss)
+    plt.title('training loss')
+    plt.ylabel('loss')
+    plt.xlabel('epoch')
+    plt.xticks(epochs)
+    plt.show()
+
     for hist in all_history:
         plt.plot(hist['accuracy'])
         plt.plot(hist['val_accuracy'])
@@ -76,6 +88,8 @@ def train_model(dataset):
     plt.legend(['Training', 'Testing'], loc='lower right')
     plt.xticks(epochs)
     plt.show()
+
+
 
     return model
 
