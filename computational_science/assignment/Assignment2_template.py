@@ -57,12 +57,13 @@ def train_model(dataset):
     tf.keras.backend.clear_session()
     model = models.Sequential() # linear sequence of layers
     model.add(layers.Dense(100, activation='relu', input_shape=(6,)))
-    #model.add(layers.Dropout(0.2))
+    #model.add(layers.Dropout(0.0))
     model.add(layers.Dense(1, activation='sigmoid')) # output probability 
     opt = tf.keras.optimizers.Adam(learning_rate=0.01)
     model.compile(optimizer=opt, loss='binary_crossentropy', metrics=['accuracy'])
 
     history = model.fit(dataset[0][:7000], dataset[1][:7000], epochs=20, batch_size=128)
+    print(model.summary)
 
     return model
 
