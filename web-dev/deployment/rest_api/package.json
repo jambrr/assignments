@@ -1,0 +1,21 @@
+{
+  "name": "rest_api",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index.js"
+  },
+  "author": "Louis Weber",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.17.1",
+    "knex": "^0.95.12",
+    "mysql": "^2.18.1",
+    "mysql2": "^2.3.2"
+  },
+  "devDependencies": {
+    "grunt-apidoc": "^0.11.0"
+  }
+}

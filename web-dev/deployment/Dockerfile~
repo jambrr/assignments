@@ -1,0 +1,10 @@
+FROM mysql:8.0
+
+ENV MYSQL_DATABASE=webdev
+ENV MYSQL_USER=webprog
+ENV MYSQL_PASSWORD=webprog
+ENV MYSQL_ROOT_PASSWORD=test
+ENV MYSQL_ROOT_HOST='%'
+
+COPY db.sql /docker-entrypoint-initdb.d/
+

@@ -1,0 +1,21 @@
+version: '3.9'
+
+services:
+    node:
+        build: ./rest_api
+        depends_on:
+            - db
+        restart: always
+        ports:
+            - "3000:3000"
+        container_name: nodejs-app
+    db:
+        build: .
+        ports:
+            - "3306:3306"
+        restart: always
+        environment:
+            MYSQL_ROOT_PASSWORD: test
+            MYSQL_DATABASE: "${MYSQL_DB}"
+            MYSQL_ROOT_HOST: '%'
+        container_name: mysql-app
