@@ -8,7 +8,7 @@ services:
         restart: always
         ports:
             - "8080:8080"
-        container_name: nodejs-app
+        container_name: springboot
     db:
         image: mongo:5.0
         ports:
