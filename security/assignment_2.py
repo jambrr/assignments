@@ -25,15 +25,15 @@ def fibonacci(n):
     B = 10
     u0 = 0
     u1 = 1
-    a = [u0, u1]
+    result = [u0, u1]
 
     for i in range(n-1):
         x = addition([u0], [u1], B)
-        a.append(x)
+        result.append(x)
         u0 = u1
         u1 = x
 
-    return a[-1]
+    return result[-1]
 
 def multiplication(a, b, B):
     a = a[::-1]
@@ -58,11 +58,11 @@ def factorial(n):
     if n == 0:
         return 1
     else:
-        r = 1
+        result = 1
         for i in range(1, n+1):
-            r = multiplication([r], [i], B)
+            result = multiplication([r], [i], B)
 
-        return r
+        return result
 
 def expmod(a, b, m):
     c = 1
