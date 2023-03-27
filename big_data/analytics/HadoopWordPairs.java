@@ -15,6 +15,8 @@ import org.apache.hadoop.mapreduce.lib.output.FileOutputFormat;
 import org.apache.hadoop.mapreduce.lib.output.TextOutputFormat;
 import org.apache.hadoop.util.Tool;
 import org.apache.hadoop.util.ToolRunner;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class HadoopWordPairs extends Configured implements Tool {
 
@@ -22,6 +24,7 @@ public class HadoopWordPairs extends Configured implements Tool {
 		private final static IntWritable one = new IntWritable(1);
 		private Text pair = new Text();
 		private Text lastWord = new Text();
+        private String regex = "";
 
 		@Override
 		public void map(LongWritable key, Text value, Context context) throws IOException, InterruptedException {
@@ -30,6 +33,7 @@ public class HadoopWordPairs extends Configured implements Tool {
 
 			for (String w : splitLine) {
 				if (lastWord.getLength() > 0) {
+                    Pattern p = Pattern.compile(regex);
 					pair.set(lastWord + ":" + w);
 					context.write(pair, one);
 				}
