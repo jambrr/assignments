@@ -24,7 +24,7 @@ public class HadoopWordPairs extends Configured implements Tool {
 		private final static IntWritable one = new IntWritable(1);
 		private Text pair = new Text();
 		private Text lastWord = new Text();
-        private String regex = "";
+        private String regex = "^[a-z]";
 
 		@Override
 		public void map(LongWritable key, Text value, Context context) throws IOException, InterruptedException {
@@ -34,8 +34,11 @@ public class HadoopWordPairs extends Configured implements Tool {
 			for (String w : splitLine) {
 				if (lastWord.getLength() > 0) {
                     Pattern p = Pattern.compile(regex);
-					pair.set(lastWord + ":" + w);
-					context.write(pair, one);
+                    Matcher m = p.matcher(w)
+                    if(m.find()){
+					    pair.set(lastWord + ":" + w);
+					    context.write(pair, one);
+                    }
 				}
 				lastWord.set(w);
 			}
