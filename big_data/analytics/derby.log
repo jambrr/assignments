@@ -1,0 +1,13 @@
+----------------------------------------------------------------
+Tue Mar 28 17:03:09 CEST 2023:
+Booting Derby version The Apache Software Foundation - Apache Derby - 10.14.2.0 - (1828579): instance a816c00e-0187-28be-8bbc-00000428bc00 
+on database directory /Users/jamber/Dev/git/assignments/big_data/analytics/metastore_db with class loader jdk.internal.loader.ClassLoaders$AppClassLoader@7aec35a 
+Loaded from file:/usr/local/spark/jars/derby-10.14.2.0.jar
+java.vendor=Oracle Corporation
+java.runtime.version=11.0.18+9-LTS-195
+user.dir=/Users/jamber/Dev/git/assignments/big_data/analytics
+os.name=Mac OS X
+os.arch=x86_64
+os.version=12.6.3
+derby.system.home=null
+Database Class Loader started - derby.database.classpath=''
