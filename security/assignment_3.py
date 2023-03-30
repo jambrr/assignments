@@ -4,7 +4,7 @@ from sage.misc.prandom import randrange
 #Fermat primality test
 def fermat(n, t):
     for i in range(t):
-        a = randint(2, n)
+        a = randint(2, n-2)
         r = pow(a, n-1, n)
 
         if r != 1:
@@ -29,16 +29,16 @@ def key_gen(k):
    
     if p != q:
         n = p * q
-        sigma = (p-1)*(q-1)
+        phi = (p-1)*(q-1)
         
         e = -1
         while e < 0:
-            x = randint(2, sigma)
-            if gcd(x, sigma) == 1:
+            #Generate random integers between 1 and phi 
+            x = randint(1, phi)
+            if gcd(x, phi) == 1:
                 e = x
                 #Compute d using the extended Eucliden algorithm
-                d = inverse_mod(e, sigma)
-
+                d = inverse_mod(e, phi)
         
         return (n, e, d)
     
@@ -51,11 +51,18 @@ def decryption(c, n, d):
     return pow(c, d, n)
 
 if __name__ == "__main__":
-    #print(fermat(11, 7))
-    n, e, d = key_gen(1000)
-    print(n, e, d)
-
-    m = encryption(123456789, n, e)
-    print(m)
-    print(decryption(m, n, d))
+    #generating the keys
+    n, e, d = key_gen(100)
+    print('n = '+str(n),'e = '+str(e), 'd = '+str(d))
     
+    #message
+    m = 12345
+    print('message = '+str(m))
+    
+    #encrypted message
+    e = encryption(m, n, e)
+    print('Encrypted message = '+str(e))
+
+    #decrypted encrypted message
+    d = decryption(e, n, d)
+    print('Decrypted message = '+str(d)) 
