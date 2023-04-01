@@ -1,0 +1,18 @@
+Spark context Web UI available at http://jamber.uni.lux:4040
+Spark context available as 'sc' (master = local[*], app id = local-1680269557517).
+Spark session available as 'spark'.
+hypo.scala:32: error: value write is not a member of Double
+result.write.text("h_output")
+       ^
+Welcome to
+      ____              __
+     / __/__  ___ _____/ /__
+    _\ \/ _ \/ _ `/ __/  '_/
+   /___/ .__/\_,_/_/ /_/\_\   version 3.2.1
+      /_/
+         
+Using Scala version 2.12.15 (Java HotSpot(TM) 64-Bit Server VM, Java 11.0.18)
+Type in expressions to have them evaluated.
+Type :help for more information.
+
+scala> val result = (survived - not_survived).abs
