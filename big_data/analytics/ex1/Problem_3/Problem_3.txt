@@ -1,0 +1,100 @@
+(a)
+To run the code, first enter the spark shell by running the command: spark-shell
+Then, enter the following code one-by-one.
+
+Code:
+	val dataframe = spark.read.option("inferSchema", true).option("header", true).csv("./Data/titanic.csv")
+
+	dataframe.createOrReplaceTempView("titanic")
+	
+	var average = dataframe.select(avg($"age")).head().getDouble(0)
+	dataframe.filter($"age" > average).select("Name").distinct.show()
+
+Output:
+	+--------------------+
+	|                Name|
+	+--------------------+
+	|"Watt, Mrs. James...|
+	|Young, Miss. Mari...|
+	|Goldsmith, Mrs. F...|
+	|    Dimic, Mr. Jovan|
+	|Harper, Mr. Henry...|
+	|Reuchlin, Jonkhee...|
+	|Hosono, Mr. Masabumi|
+	| Partner, Mr. Austen|
+	|Slemen, Mr. Richa...|
+	|Potter, Mrs. Thom...|
+	|Endres, Miss. Car...|
+	|Nysveen, Mr. Joha...|
+	|Dahl, Mr. Karl Ed...|
+	|Frolicher-Stehli,...|
+	| Icard, Miss. Amelie|
+	|Foreman, Mr. Benj...|
+	|Sinkkonen, Miss. ...|
+	| Svensson, Mr. Johan|
+	|Jenkin, Mr. Steph...|
+	|    Ward, Miss. Anna|
+	+--------------------+
+	only showing top 20 rows
+
+(b)
+To run the code, first enter the spark shell by running the command: spark-shell
+Then, enter the following code one-by-one.
+
+Code:
+	val dataframe = spark.read.option("inferSchema", true).option("header", true).csv("./Data/titanic.csv")
+
+	dataframe.createOrReplaceTempView("titanic")
+	
+	var names = spark.sql("SELECT DISTINCT name FROM titanic WHERE age > (SELECT AVG(age) FROM titanic)")
+
+Output:
+	+--------------------+
+	|                name|
+	+--------------------+
+	|"Watt, Mrs. James...|
+	|Young, Miss. Mari...|
+	|Goldsmith, Mrs. F...|
+	|    Dimic, Mr. Jovan|
+	|Harper, Mr. Henry...|
+	|Reuchlin, Jonkhee...|
+	|Hosono, Mr. Masabumi|
+	| Partner, Mr. Austen|
+	|Slemen, Mr. Richa...|
+	|Potter, Mrs. Thom...|
+	|Endres, Miss. Car...|
+	|Nysveen, Mr. Joha...|
+	|Dahl, Mr. Karl Ed...|
+	|Frolicher-Stehli,...|
+	| Icard, Miss. Amelie|
+	|Foreman, Mr. Benj...|
+	|Sinkkonen, Miss. ...|
+	| Svensson, Mr. Johan|
+	|Jenkin, Mr. Steph...|
+	|    Ward, Miss. Anna|
+	+--------------------+
+	only showing top 20 rows
+
+(c)
+The code for this question is in the 3c.scala file.
+To execute, run: spark-shell < 3c.scala
+
+Output:
+	+------------------+
+	|    myaverage(age)|
+	+------------------+
+	|23.783389450056116|
+	+------------------+
+(d)
+The code for this question is in the 3d.scala file.
+To execute, run: spark-shell < 3d.scala
+
+Output:
+scala> println("Average age of those who survived: " + survived)
+Average age of those who survived: 28.343689655172415
+
+scala> println("Average age of those who didn't survived: " + not_survived)
+Average age of those who didn't survived: 30.62617924528302
+
+scala> println("Age difference between the 2 groups: " +result)
+Age difference between the 2 groups: 2.282489590110604
