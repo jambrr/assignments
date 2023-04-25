@@ -11,6 +11,9 @@ import scala.util.Random
 import org.apache.spark.sql.DataFrame
 import org.apache.spark.sql.Column
 import org.apache.spark.sql.Row
+import org.apache.spark.sql.functions.rand
+import scala.collection.mutable.WrappedArray
+
 
 //Problem 1
 //(a)
@@ -61,7 +64,14 @@ val neg_tweets = List(
     "1019675876793966600",
     "1017782768615469000",
     "1017835110509482000",
-    "1019233887371825200"
+    "1019233887371825200",
+    "1019376257169948700",
+    "1019433708439273500",
+    "1019635913939472400",
+    "1019644963477475300",
+    "1019018893451554800",
+    "1019582090373947400",
+    "1019620820514111500",
 )
 
 val pos_tweets = List(
@@ -90,6 +100,12 @@ val pos_tweets = List(
     "1019251887562948600",
     "1019571763473240000",
     "1019670834338648000", 
+    "1017073726284861400",
+    "1019270034114392000",
+    "1019064217754882000",
+    "1019594545821028400",
+    "1019627026909745200",
+    "1019594545821028400"
 )
 
 val schema = StructType(
@@ -102,32 +118,35 @@ val schema = StructType(
     StructField("company_names", StringType, nullable = true),
     StructField("url", StringType, nullable = true),
     StructField("verified", StringType, nullable = false),
-    StructField("words", ArrayType(StringType, containsNull = false), nullable = true),
-    StructField("label", IntegerType, nullable = true)
+    StructField("words", ArrayType(StringType, containsNull = false), nullable = false),
   )
 )
 
 var negDF = spark.createDataFrame(spark.sparkContext.emptyRDD[Row], schema)
 var posDF = spark.createDataFrame(spark.sparkContext.emptyRDD[Row], schema)
 
-for(id <- neg_tweets){ 
-    val tweet = tweets_normalized.filter("id == "+id).withColumn("label", lit(-1))
+for(nid <- neg_tweets){ 
+    val tweet = tweets_normalized.filter(tweets_normalized("id") === nid)
     negDF = negDF.union(tweet)
 }
 
-for(id <- pos_tweets){
-    val tweet = tweets_normalized.filter("id == "+id).withColumn("label", lit(1))
+for(pid <- pos_tweets){
+    val tweet = tweets_normalized.filter(tweets_normalized("id") === pid)
     posDF = posDF.union(tweet)
 }
 
 // pos: Create label
-val data_pos_feature = tf.transform(posDF).withColumn("label", lit(1))
+val data_pos_feature = tf.transform(posDF).withColumn("label", lit(+1))
+data_pos_feature.show()
 
 // neg: Create label
 val data_neg_feature = tf.transform(negDF).withColumn("label", lit(-1))
+data_neg_feature.show()
 
 // Use the union of both as training data 
-val trainingData = data_pos_feature.union(data_neg_feature) 
+val mixedData = data_pos_feature.union(data_neg_feature) 
+val trainingData = mixedData.orderBy(rand())
+trainingData.show()
 
 // Run Linear Regression
 val lr = new LinearRegression()
@@ -136,10 +155,10 @@ val lr = new LinearRegression()
 val model = lr.fit(trainingData)
 
 // Test on a positive example (spam) and a negative one (normal).  
-val pos_input = Seq("Your report looks good, good jo".split(" ")).toDF("words")
+val pos_input = Seq("Morgan Stanley rises more than 3% after strong earnings bea".split(" ")).toDF("words")
 val posTest = tf.transform(pos_input)
 
-val neg_input = Seq("You are being so stupid".split(" ")).toDF("words")
+val neg_input = Seq("I wish I fucked with Carti".split(" ")).toDF("words")
 val negTest = tf.transform(neg_input)
 
 val pos_predictions = model.transform(posTest)
@@ -149,10 +168,31 @@ val neg_predictions = model.transform(negTest)
 pos_predictions.show()
 neg_predictions.show()
 
+//var all_predictions = List.empty[String]
+val wordsschema = StructType(Seq(
+  StructField("words", ArrayType(StringType))
+))
+tweets_normalized.foreach(r => {
+  val all_data: Seq[String] = r.getAs[WrappedArray[String]](8).toSeq
+
+  if (all_data != null){
+    val df = Seq(all_data).toDF("words")
+    println(df)
+    if (df != null){
+      var all_predictions = model.transform(df)
+      all_predictions.show()
+    }
+  }
+})
+
+all_predictions.show()
+
+model.coefficients
+
 // Get the predicted value from the DataFrame
-//val pos_predictions_value = pos_predictions.select("prediction").head.getDouble(0)
-//val neg_predictions_value = neg_predictions.select("prediction").head.getDouble(0)
+val pos_predictions_value = pos_predictions.select("prediction").head.getDouble(0)
+val neg_predictions_value = neg_predictions.select("prediction").head.getDouble(0)
 //
 //// Print the predicted value
-//println("Sentence: Viagra GET cheap stuff by sending money to ... \n" + "Prediction: " + pos_predictions_value)
-//println("Sentence: Hi Dad, I started studying Spark the other day.\n" + "Prediction: " + neg_predictions_value)
+println("Sentence: Viagra GET cheap stuff by sending money to ... \n" + "Prediction: " + pos_predictions_value)
+println("Sentence: Hi Dad, I started studying Spark the other day.\n" + "Prediction: " + neg_predictions_value)
