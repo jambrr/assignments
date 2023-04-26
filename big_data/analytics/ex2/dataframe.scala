@@ -172,11 +172,12 @@ neg_predictions.show()
 val wordsschema = StructType(Seq(
   StructField("words", ArrayType(StringType))
 ))
+
 tweets_normalized.foreach(r => {
-  val all_data: Seq[String] = r.getAs[WrappedArray[String]](8).toSeq
+  val all_data: Seq[String] = Seq(r.getAs[WrappedArray[String]](8))
 
   if (all_data != null){
-    val df = Seq(all_data).toDF("words")
+    val df = all_data.toDF("words") 
     println(df)
     if (df != null){
       var all_predictions = model.transform(df)
