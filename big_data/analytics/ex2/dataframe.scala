@@ -108,6 +108,9 @@ val pos_tweets = List(
     "1019594545821028400"
 )
 
+val wordsToFilter = Seq()
+//val filteredTweets= tweets_normalized.filter(col("text").rlike(wordsToFilter.mkString("|")))
+
 val schema = StructType(
   Seq(
     StructField("id", LongType, nullable = false),
@@ -168,25 +171,23 @@ val neg_predictions = model.transform(negTest)
 pos_predictions.show()
 neg_predictions.show()
 
-//var all_predictions = List.empty[String]
-val wordsschema = StructType(Seq(
-  StructField("words", ArrayType(StringType))
-))
+val all_data_features = tf.transform(tweets_normalized.select("words"))
+var all_predictions = model.transform(all_data_features)
+all_predictions.show(false)
 
-tweets_normalized.foreach(r => {
-  val all_data: Seq[String] = Seq(r.getAs[WrappedArray[String]](8))
-
-  if (all_data != null){
-    val df = all_data.toDF("words") 
-    println(df)
-    if (df != null){
-      var all_predictions = model.transform(df)
-      all_predictions.show()
-    }
-  }
-})
-
-all_predictions.show()
+//tweets_normalized.foreach(r => {
+//  val wrappedArray: WrappedArray[String] = r.getAs[WrappedArray[String]](8) 
+//  val all_data: Seq[String] = wrappedArray.toSeq
+//
+//  if (all_data != null){
+//    val df = all_data.toDF("words") 
+//    println(df)
+//    if (df != null){
+//      var all_predictions = model.transform(df)
+//      all_predictions.show()
+//    }
+//  }
+//})
 
 model.coefficients
 
