@@ -55,8 +55,10 @@ val assembler = new VectorAssembler()
 // evaluate the model
 val evaluator = new BinaryClassificationEvaluator()
   .setLabelCol("label")
-  .setRawPredictionCol("rawPrediction")
+  .setRawPredictionCol("prediction")
   .setMetricName("areaUnderROC")
+
+val trainedModel = pipeline.fit(trainData)
 
 val accuracy = evaluator.evaluate(predictions)
 //Test error
@@ -78,6 +80,7 @@ val cv = new CrossValidator()
   .setEvaluator(evaluator)
   .setEstimatorParamMaps(paramGrid.build())
   .setNumFolds(4)
+  .setParallelism(3)
 
 val cvModel = cv.fit(trainData)
 
@@ -86,12 +89,5 @@ val predictions = cvModel.transform(testData)
 val accuracy = evaluator.evaluate(predictions)
 println("Test Error = " + (1.0 - accuracy))
 
-val bestModel = cvModel.bestModel.asInstanceOf[PipelineModel].stages.last.asInstanceOf[DecisionTreeClassificationModel]
-
-val predictions = bestModel.transform(testData)
-
-val metrics = new BinaryClassificationMetrics(predictions.select("rawPrediction", "label").rdd.map(x => (x(0).asInstanceOf[DenseVector](1), x.getDouble(1))))
-
-println("Accuracy = " + metrics.areaUnderROC())
-
+val bestModel = cvModel.bestModel.asInstanceOf[PipelineModel]
 bestModel.write.overwrite().save("./bestmodel")
