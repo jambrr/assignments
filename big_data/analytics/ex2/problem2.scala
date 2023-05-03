@@ -89,5 +89,27 @@ val predictions = cvModel.transform(testData)
 val accuracy = evaluator.evaluate(predictions)
 println("Test Error = " + (1.0 - accuracy))
 
-val bestModel = cvModel.bestModel.asInstanceOf[PipelineModel]
+//Get the estimator to fit the training data
+val estimator = cvModel.bestModel.asInstanceOf[PipelineModel].stages.last.asInstanceOf[DecisionTreeClassificationModel]
+val bestPipeline = new Pipeline().setStages(stringIndexer.toArray ++ Array(assembler, labelIndexer, estimator))
+val bestModel = bestPipeline.fit(trainData)
+
 bestModel.write.overwrite().save("./bestmodel")
+
+// --- iv
+// Make predictions on the test set
+val newPredictions = bestModel.transform(testData)
+
+// Compute the evaluation metrics
+val evaluator = new BinaryClassificationEvaluator().setLabelCol("label").setRawPredictionCol("rawPrediction")
+val accuracy = evaluator.evaluate(newPredictions)
+val bcMetrics = new BinaryClassificationMetrics(newPredictions.select("prediction", "label").rdd.map(row => (row.getDouble(0), row.getDouble(1))))
+
+// Compute precision and recall
+val precision = bcMetrics.precisionByThreshold.collect().head._2
+val recall = bcMetrics.recallByThreshold.collect().head._2
+
+// Print the results
+println(s"Accuracy: $accuracy")
+println(s"Precision: $precision")
+println(s"Recall: $recall")

@@ -173,7 +173,7 @@ neg_predictions.show()
 
 val all_data_features = tf.transform(tweets_normalized.select("words"))
 var all_predictions = model.transform(all_data_features)
-all_predictions.show(false)
+all_predictions.show(50, truncate=False)
 
 //tweets_normalized.foreach(r => {
 //  val wrappedArray: WrappedArray[String] = r.getAs[WrappedArray[String]](8) 

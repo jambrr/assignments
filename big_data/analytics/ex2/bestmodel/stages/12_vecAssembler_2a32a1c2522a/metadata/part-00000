@@ -1,0 +1,1 @@
+{"class":"org.apache.spark.ml.feature.VectorAssembler","timestamp":1683151644497,"sparkVersion":"3.2.1","uid":"vecAssembler_2a32a1c2522a","paramMap":{"outputCol":"features","inputCols":["BMI","PhysicalHealth","MentalHealth","SleepTime"]},"defaultParamMap":{"outputCol":"vecAssembler_2a32a1c2522a__output","handleInvalid":"error"}}
