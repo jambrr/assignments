@@ -1,1 +1,0 @@
-{"class":"org.apache.spark.ml.feature.StringIndexerModel","timestamp":1683151643361,"sparkVersion":"3.2.1","uid":"strIdx_283da1de74b6","paramMap":{"inputCol":"Diabetic","outputCol":"Diabetic_indexed"},"defaultParamMap":{"stringOrderType":"frequencyDesc","handleInvalid":"error","outputCol":"strIdx_283da1de74b6__output"}}

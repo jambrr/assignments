@@ -1,1 +1,0 @@
-{"class":"org.apache.spark.ml.feature.StringIndexerModel","timestamp":1683151643566,"sparkVersion":"3.2.1","uid":"strIdx_fbf6d76bc564","paramMap":{"inputCol":"GenHealth","outputCol":"GenHealth_indexed"},"defaultParamMap":{"handleInvalid":"error","stringOrderType":"frequencyDesc","outputCol":"strIdx_fbf6d76bc564__output"}}

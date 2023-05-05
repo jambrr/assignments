@@ -19,10 +19,6 @@ val data = spark.read.option("inferSchema", true).option("header", true).csv("./
 data.show
 data.createOrReplaceTempView("heart_disease")
 
-var text = spark.sql("SELECT * from heart_disease")
-
-val sampleSize = 0.01 // use 1 percent sample size for debugging!
-
 val categoricalCols = Array("Smoking", "AlcoholDrinking", "Sex", "Stroke", "AgeCategory", "Race", "Diabetic", "GenHealth", "Asthma", "PhysicalActivity", "KidneyDisease", "SkinCancer")
 val numericalCols = Array("BMI", "PhysicalHealth", "MentalHealth", "SleepTime")
 
@@ -37,13 +33,12 @@ val labelIndexer = new StringIndexer()
   .setOutputCol("label")
   .fit(data)
 
-val Array(trainData, testData) = data.randomSplit(Array(0.9, 0.1))
+val Array(trainData, testData) = data.randomSplit(Array(0.9, 0.1), seed=1234)
 
 val assembler = new VectorAssembler()
   .setInputCols(numericalCols)
   .setOutputCol("features")
 
- // train the DecisionTree model
  val decisionTree = new DecisionTreeClassifier().setLabelCol("label").setFeaturesCol("features")
 
  val pipeline = new Pipeline().setStages(stringIndexer.toArray ++ Array(assembler, labelIndexer, decisionTree))
@@ -58,6 +53,7 @@ val evaluator = new BinaryClassificationEvaluator()
   .setRawPredictionCol("prediction")
   .setMetricName("areaUnderROC")
 
+//Train the model using the training data
 val trainedModel = pipeline.fit(trainData)
 
 val accuracy = evaluator.evaluate(predictions)
@@ -82,6 +78,7 @@ val cv = new CrossValidator()
   .setNumFolds(4)
   .setParallelism(3)
 
+//Fit the training data to the cvModel
 val cvModel = cv.fit(trainData)
 
 // Evaluate the best model on the test set
@@ -94,6 +91,7 @@ val estimator = cvModel.bestModel.asInstanceOf[PipelineModel].stages.last.asInst
 val bestPipeline = new Pipeline().setStages(stringIndexer.toArray ++ Array(assembler, labelIndexer, estimator))
 val bestModel = bestPipeline.fit(trainData)
 
+//Store the best model in a directory called "bestmodel"
 bestModel.write.overwrite().save("./bestmodel")
 
 // --- iv
