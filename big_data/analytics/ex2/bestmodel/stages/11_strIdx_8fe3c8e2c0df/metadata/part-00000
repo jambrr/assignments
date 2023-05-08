@@ -1,0 +1,1 @@
+{"class":"org.apache.spark.ml.feature.StringIndexerModel","timestamp":1683487913593,"sparkVersion":"3.2.1","uid":"strIdx_8fe3c8e2c0df","paramMap":{"outputCol":"SkinCancer_indexed","inputCol":"SkinCancer"},"defaultParamMap":{"outputCol":"strIdx_8fe3c8e2c0df__output","stringOrderType":"frequencyDesc","handleInvalid":"error"}}

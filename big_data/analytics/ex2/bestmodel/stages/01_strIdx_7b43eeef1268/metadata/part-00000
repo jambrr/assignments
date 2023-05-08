@@ -1,0 +1,1 @@
+{"class":"org.apache.spark.ml.feature.StringIndexerModel","timestamp":1683487911298,"sparkVersion":"3.2.1","uid":"strIdx_7b43eeef1268","paramMap":{"inputCol":"AlcoholDrinking","outputCol":"AlcoholDrinking_indexed"},"defaultParamMap":{"handleInvalid":"error","stringOrderType":"frequencyDesc","outputCol":"strIdx_7b43eeef1268__output"}}

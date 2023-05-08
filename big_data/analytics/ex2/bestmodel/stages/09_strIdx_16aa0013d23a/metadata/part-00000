@@ -1,0 +1,1 @@
+{"class":"org.apache.spark.ml.feature.StringIndexerModel","timestamp":1683487913084,"sparkVersion":"3.2.1","uid":"strIdx_16aa0013d23a","paramMap":{"inputCol":"PhysicalActivity","outputCol":"PhysicalActivity_indexed"},"defaultParamMap":{"outputCol":"strIdx_16aa0013d23a__output","handleInvalid":"error","stringOrderType":"frequencyDesc"}}

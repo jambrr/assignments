@@ -1,0 +1,67 @@
+Problem 2
+
+HOW-TO-RUN Instructions:
+In order to run the code, use the terminal and enter: "spark-shell < problem2.scala"
+
+(b)
+    (iv)
+        Output:
+            scala> val cvAccuracy = evaluator.evaluate(newPredictions)
+            cvAccuracy: Double = 0.44484633918302874
+
+            scala> val cvPrecision = bcMetrics.precisionByThreshold.collect().head._2
+            cvPrecision: Double = 0.2602739726027397
+
+            scala> val cvRecall = bcMetrics.recallByThreshold.collect().head._2
+            cvRecall: Double = 0.0069750367107195305
+
+        Comments:
+            The performance of the model is not very good. Having a accuracy of 44%, Precision of 26% and Recall of 0%
+
+(c)
+    Output:
+        scala> // Print the CV API results
+        scala> println("CrossValidation API")
+        CrossValidation API
+
+        scala> println(s"Accuracy: $cvAccuracy")
+        Accuracy: 0.44484633918302874
+
+        scala> println(s"Precision: $cvPrecision")
+        Precision: 0.2602739726027397
+
+        scala> println(s"Recall: $cvRecall")
+        Recall: 0.0069750367107195305
+
+        scala> // Print the TVS API results
+
+        scala> println("TrainValidationSplit API")
+        TrainValidationSplit API
+
+        scala> println(s"Accuracy: $tvsAccuracy2")
+        Accuracy: 0.5
+
+        scala> println(s"Precision: $tvsPrecision2")
+        Precision: 0.08543202132664263
+
+        scala> println(s"Recall: $tvsRecall2")
+        Recall: 1.0
+    
+    Comments:
+        The TrainValidationSplit API has a higher accuracy and a higher recall value compare to the CrossValidation API.
+
+(d)
+    Output:
+        scala> println(s"Accuracy: $tvsAccuracy")
+        Accuracy: 0.10699099448881891
+
+        scala> println(s"Precision: $tvsPrecision")
+        Precision: 1.0
+
+        scala> println(s"Recall: $tvsRecall")
+        Recall: 0.0024906163398463535
+    
+    Comments:
+        Since this model has a low accuracy but a perfect precision, this model is not good at correctly identifying an instance
+        but if it deos identifying an instance correctly it will be correct.
+
