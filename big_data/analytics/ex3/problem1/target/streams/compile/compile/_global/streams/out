@@ -1,0 +1,122 @@
+[0m[[0m[31merror[0m] [0m[0m/Users/jamber/Dev/git/assignments/big_data/analytics/ex3/problem1/problem1.scala:10:25: object JavaConversions is not a member of package collection[0m
+[0m[[0m[31merror[0m] [0m[0mimport scala.collection.JavaConversions._[0m
+[0m[[0m[31merror[0m] [0m[0m                        ^[0m
+[0m[[0m[31merror[0m] [0m[0m/Users/jamber/Dev/git/assignments/big_data/analytics/ex3/problem1/problem1.scala:78:12: not found: value edu[0m
+[0m[[0m[31merror[0m] [0m[0m    import edu.stanford.nlp.pipeline._[0m
+[0m[[0m[31merror[0m] [0m[0m           ^[0m
+[0m[[0m[31merror[0m] [0m[0m/Users/jamber/Dev/git/assignments/big_data/analytics/ex3/problem1/problem1.scala:79:12: not found: value edu[0m
+[0m[[0m[31merror[0m] [0m[0m    import edu.stanford.nlp.ling.CoreAnnotations._[0m
+[0m[[0m[31merror[0m] [0m[0m           ^[0m
+[0m[[0m[31merror[0m] [0m[0m/Users/jamber/Dev/git/assignments/big_data/analytics/ex3/problem1/problem1.scala:81:30: not found: type StanfordCoreNLP[0m
+[0m[[0m[31merror[0m] [0m[0m    def createNLPPipeline(): StanfordCoreNLP = {[0m
+[0m[[0m[31merror[0m] [0m[0m                             ^[0m
+[0m[[0m[31merror[0m] [0m[0m/Users/jamber/Dev/git/assignments/big_data/analytics/ex3/problem1/problem1.scala:84:11: not found: type StanfordCoreNLP[0m
+[0m[[0m[31merror[0m] [0m[0m      new StanfordCoreNLP(props)[0m
+[0m[[0m[31merror[0m] [0m[0m          ^[0m
+[0m[[0m[31merror[0m] [0m[0m/Users/jamber/Dev/git/assignments/big_data/analytics/ex3/problem1/problem1.scala:87:51: not found: type StanfordCoreNLP[0m
+[0m[[0m[31merror[0m] [0m[0m    def plainTextToLemmas(text: String, pipeline: StanfordCoreNLP): Seq[String] = {[0m
+[0m[[0m[31merror[0m] [0m[0m                                                  ^[0m
+[0m[[0m[31merror[0m] [0m[0m/Users/jamber/Dev/git/assignments/big_data/analytics/ex3/problem1/problem1.scala:88:21: not found: type Annotation[0m
+[0m[[0m[31merror[0m] [0m[0m      val doc = new Annotation(text)[0m
+[0m[[0m[31merror[0m] [0m[0m                    ^[0m
+[0m[[0m[31merror[0m] [0m[0m/Users/jamber/Dev/git/assignments/big_data/analytics/ex3/problem1/problem1.scala:140:40: value toDouble is not a member of org.apache.spark.rdd.RDD[(String, String)][0m
+[0m[[0m[31merror[0m] [0m[0m        (term, math.log(bNumDocs.value.toDouble / count))[0m
+[0m[[0m[31merror[0m] [0m[0m                                       ^[0m
+[0m[[0m[31merror[0m] [0m[0m/Users/jamber/Dev/git/assignments/big_data/analytics/ex3/problem1/problem1.scala:151:29: object mllib is not a member of package org.apache.spark[0m
+[0m[[0m[31merror[0m] [0m[0m    import org.apache.spark.mllib.linalg.Vectors[0m
+[0m[[0m[31merror[0m] [0m[0m                            ^[0m
+[0m[[0m[31merror[0m] [0m[0m/Users/jamber/Dev/git/assignments/big_data/analytics/ex3/problem1/problem1.scala:152:29: object mllib is not a member of package org.apache.spark[0m
+[0m[[0m[31merror[0m] [0m[0m    import org.apache.spark.mllib.linalg.Matrix[0m
+[0m[[0m[31merror[0m] [0m[0m                            ^[0m
+[0m[[0m[31merror[0m] [0m[0m/Users/jamber/Dev/git/assignments/big_data/analytics/ex3/problem1/problem1.scala:153:29: object mllib is not a member of package org.apache.spark[0m
+[0m[[0m[31merror[0m] [0m[0m    import org.apache.spark.mllib.linalg.SingularValueDecomposition[0m
+[0m[[0m[31merror[0m] [0m[0m                            ^[0m
+[0m[[0m[31merror[0m] [0m[0m/Users/jamber/Dev/git/assignments/big_data/analytics/ex3/problem1/problem1.scala:155:29: object mllib is not a member of package org.apache.spark[0m
+[0m[[0m[31merror[0m] [0m[0m    import org.apache.spark.mllib.linalg.distributed.RowMatrix[0m
+[0m[[0m[31merror[0m] [0m[0m                            ^[0m
+[0m[[0m[31merror[0m] [0m[0m/Users/jamber/Dev/git/assignments/big_data/analytics/ex3/problem1/problem1.scala:160:48: type mismatch;[0m
+[0m[[0m[31merror[0m] [0m[0m found   : term.type (with underlying type String)[0m
+[0m[[0m[31merror[0m] [0m[0m required: Nothing[0m
+[0m[[0m[31merror[0m] [0m[0m        case (term, freq) => bIdTerms.contains(term)[0m
+[0m[[0m[31merror[0m] [0m[0m                                               ^[0m
+[0m[[0m[31merror[0m] [0m[0m/Users/jamber/Dev/git/assignments/big_data/analytics/ex3/problem1/problem1.scala:162:40: type mismatch;[0m
+[0m[[0m[31merror[0m] [0m[0m found   : term.type (with underlying type Any)[0m
+[0m[[0m[31merror[0m] [0m[0m required: Nothing[0m
+[0m[[0m[31merror[0m] [0m[0m        case (term, freq) => (bIdTerms(term), bIdfs(term) * termFreqs(term) / docTotalTerms)[0m
+[0m[[0m[31merror[0m] [0m[0m                                       ^[0m
+[0m[[0m[31merror[0m] [0m[0m/Users/jamber/Dev/git/assignments/big_data/analytics/ex3/problem1/problem1.scala:162:53: type mismatch;[0m
+[0m[[0m[31merror[0m] [0m[0m found   : term.type (with underlying type Any)[0m
+[0m[[0m[31merror[0m] [0m[0m required: Nothing[0m
+[0m[[0m[31merror[0m] [0m[0m        case (term, freq) => (bIdTerms(term), bIdfs(term) * termFreqs(term) / docTotalTerms)[0m
+[0m[[0m[31merror[0m] [0m[0m                                                    ^[0m
+[0m[[0m[31merror[0m] [0m[0m/Users/jamber/Dev/git/assignments/big_data/analytics/ex3/problem1/problem1.scala:162:71: type mismatch;[0m
+[0m[[0m[31merror[0m] [0m[0m found   : Any[0m
+[0m[[0m[31merror[0m] [0m[0m required: String[0m
+[0m[[0m[31merror[0m] [0m[0m        case (term, freq) => (bIdTerms(term), bIdfs(term) * termFreqs(term) / docTotalTerms)[0m
+[0m[[0m[31merror[0m] [0m[0m                                                                      ^[0m
+[0m[[0m[31merror[0m] [0m[0m/Users/jamber/Dev/git/assignments/big_data/analytics/ex3/problem1/problem1.scala:164:7: not found: value Vectors[0m
+[0m[[0m[31merror[0m] [0m[0m      Vectors.sparse(bIdTerms.size, termScores)[0m
+[0m[[0m[31merror[0m] [0m[0m      ^[0m
+[0m[[0m[31merror[0m] [0m[0m/Users/jamber/Dev/git/assignments/big_data/analytics/ex3/problem1/problem1.scala:170:19: not found: type RowMatrix[0m
+[0m[[0m[31merror[0m] [0m[0m    val mat = new RowMatrix(vecs)[0m
+[0m[[0m[31merror[0m] [0m[0m                  ^[0m
+[0m[[0m[31merror[0m] [0m[0m/Users/jamber/Dev/git/assignments/big_data/analytics/ex3/problem1/problem1.scala:176:12: not found: type SingularValueDecomposition[0m
+[0m[[0m[31merror[0m] [0m[0m      svd: SingularValueDecomposition[RowMatrix, Matrix],[0m
+[0m[[0m[31merror[0m] [0m[0m           ^[0m
+[0m[[0m[31merror[0m] [0m[0m/Users/jamber/Dev/git/assignments/big_data/analytics/ex3/problem1/problem1.scala:194:12: not found: type SingularValueDecomposition[0m
+[0m[[0m[31merror[0m] [0m[0m      svd: SingularValueDecomposition[RowMatrix, Matrix],[0m
+[0m[[0m[31merror[0m] [0m[0m           ^[0m
+[0m[[0m[31merror[0m] [0m[0m/Users/jamber/Dev/git/assignments/big_data/analytics/ex3/problem1/problem1.scala:217:12: not found: value breeze[0m
+[0m[[0m[31merror[0m] [0m[0m    import breeze.linalg.{DenseMatrix => BDenseMatrix, SparseVector => BSparseVector}[0m
+[0m[[0m[31merror[0m] [0m[0m           ^[0m
+[0m[[0m[31merror[0m] [0m[0m/Users/jamber/Dev/git/assignments/big_data/analytics/ex3/problem1/problem1.scala:218:29: object mllib is not a member of package org.apache.spark[0m
+[0m[[0m[31merror[0m] [0m[0m    import org.apache.spark.mllib.linalg.{Matrices, Matrix, SingularValueDecomposition, Vectors, Vector => MLLibVector}[0m
+[0m[[0m[31merror[0m] [0m[0m                            ^[0m
+[0m[[0m[31merror[0m] [0m[0m/Users/jamber/Dev/git/assignments/big_data/analytics/ex3/problem1/problem1.scala:223:62: not found: type BSparseVector[0m
+[0m[[0m[31merror[0m] [0m[0m      idfs: scala.collection.immutable.Map[String, Double]): BSparseVector[Double] = {[0m
+[0m[[0m[31merror[0m] [0m[0m                                                             ^[0m
+[0m[[0m[31merror[0m] [0m[0m/Users/jamber/Dev/git/assignments/big_data/analytics/ex3/problem1/problem1.scala:226:11: not found: type BSparseVector[0m
+[0m[[0m[31merror[0m] [0m[0m      new BSparseVector[Double](indices, values, idTerms.size)[0m
+[0m[[0m[31merror[0m] [0m[0m          ^[0m
+[0m[[0m[31merror[0m] [0m[0m/Users/jamber/Dev/git/assignments/big_data/analytics/ex3/problem1/problem1.scala:230:11: not found: type RowMatrix[0m
+[0m[[0m[31merror[0m] [0m[0m      US: RowMatrix,[0m
+[0m[[0m[31merror[0m] [0m[0m          ^[0m
+[0m[[0m[31merror[0m] [0m[0m/Users/jamber/Dev/git/assignments/big_data/analytics/ex3/problem1/problem1.scala:231:10: not found: type Matrix[0m
+[0m[[0m[31merror[0m] [0m[0m      V: Matrix,[0m
+[0m[[0m[31merror[0m] [0m[0m         ^[0m
+[0m[[0m[31merror[0m] [0m[0m/Users/jamber/Dev/git/assignments/big_data/analytics/ex3/problem1/problem1.scala:232:14: not found: type BSparseVector[0m
+[0m[[0m[31merror[0m] [0m[0m      query: BSparseVector[Double]): Seq[(Double, Long)] = {[0m
+[0m[[0m[31merror[0m] [0m[0m             ^[0m
+[0m[[0m[31merror[0m] [0m[0m/Users/jamber/Dev/git/assignments/big_data/analytics/ex3/problem1/problem1.scala:233:25: not found: type BDenseMatrix[0m
+[0m[[0m[31merror[0m] [0m[0m      val breezeV = new BDenseMatrix[Double](V.numRows, V.numCols, V.toArray)[0m
+[0m[[0m[31merror[0m] [0m[0m                        ^[0m
+[0m[[0m[31merror[0m] [0m[0m/Users/jamber/Dev/git/assignments/big_data/analytics/ex3/problem1/problem1.scala:235:24: not found: value Matrices[0m
+[0m[[0m[31merror[0m] [0m[0m      val termRowVec = Matrices.dense(termRowArr.length, 1, termRowArr)[0m
+[0m[[0m[31merror[0m] [0m[0m                       ^[0m
+[0m[[0m[31merror[0m] [0m[0m/Users/jamber/Dev/git/assignments/big_data/analytics/ex3/problem1/problem1.scala:241:73: not found: type RowMatrix[0m
+[0m[[0m[31merror[0m] [0m[0m    def multiplyByDiagonalRowMatrix(mat: RowMatrix, diag: MLLibVector): RowMatrix = {[0m
+[0m[[0m[31merror[0m] [0m[0m                                                                        ^[0m
+[0m[[0m[31merror[0m] [0m[0m/Users/jamber/Dev/git/assignments/big_data/analytics/ex3/problem1/problem1.scala:241:42: not found: type RowMatrix[0m
+[0m[[0m[31merror[0m] [0m[0m    def multiplyByDiagonalRowMatrix(mat: RowMatrix, diag: MLLibVector): RowMatrix = {[0m
+[0m[[0m[31merror[0m] [0m[0m                                         ^[0m
+[0m[[0m[31merror[0m] [0m[0m/Users/jamber/Dev/git/assignments/big_data/analytics/ex3/problem1/problem1.scala:241:59: not found: type MLLibVector[0m
+[0m[[0m[31merror[0m] [0m[0m    def multiplyByDiagonalRowMatrix(mat: RowMatrix, diag: MLLibVector): RowMatrix = {[0m
+[0m[[0m[31merror[0m] [0m[0m                                                          ^[0m
+[0m[[0m[31merror[0m] [0m[0m/Users/jamber/Dev/git/assignments/big_data/analytics/ex3/problem1/problem1.scala:243:11: not found: type RowMatrix[0m
+[0m[[0m[31merror[0m] [0m[0m      new RowMatrix(mat.rows.map { vec =>[0m
+[0m[[0m[31merror[0m] [0m[0m          ^[0m
+[0m[[0m[31merror[0m] [0m[0m/Users/jamber/Dev/git/assignments/big_data/analytics/ex3/problem1/problem1.scala:253:46: type mismatch;[0m
+[0m[[0m[31merror[0m] [0m[0m found   : scala.collection.immutable.Map[Nothing,Int][0m
+[0m[[0m[31merror[0m] [0m[0m required: scala.collection.immutable.Map[String,Int][0m
+[0m[[0m[31merror[0m] [0m[0mNote: Nothing <: String, but trait Map is invariant in type K.[0m
+[0m[[0m[31merror[0m] [0m[0mYou may wish to investigate a wildcard type such as `_ <: String`. (SLS 3.2.10)[0m
+[0m[[0m[31merror[0m] [0m[0m    val queryVec = termsToQueryVector(terms, idTerms, idfs)[0m
+[0m[[0m[31merror[0m] [0m[0m                                             ^[0m
+[0m[[0m[31merror[0m] [0m[0m/Users/jamber/Dev/git/assignments/big_data/analytics/ex3/problem1/problem1.scala:253:55: type mismatch;[0m
+[0m[[0m[31merror[0m] [0m[0m found   : scala.collection.immutable.Map[Nothing,Nothing][0m
+[0m[[0m[31merror[0m] [0m[0m required: scala.collection.immutable.Map[String,Double][0m
+[0m[[0m[31merror[0m] [0m[0mNote: Nothing <: String, but trait Map is invariant in type K.[0m
+[0m[[0m[31merror[0m] [0m[0mYou may wish to investigate a wildcard type such as `_ <: String`. (SLS 3.2.10)[0m
+[0m[[0m[31merror[0m] [0m[0m    val queryVec = termsToQueryVector(terms, idTerms, idfs)[0m
+[0m[[0m[31merror[0m] [0m[0m                                                      ^[0m
+[0m[[0m[31merror[0m] [0m[0m35 errors found[0m
